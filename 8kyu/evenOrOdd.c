@@ -9,8 +9,8 @@
 // for example a string literal
 const char* even_or_odd(int number)
 {
-  char *even = "Even";
-  char *odd = "Odd";
+  static const char *even = "Even";
+  static const char *odd = "Odd";
   
   if (number % 2 == 0) 
     return even;
