@@ -43,5 +43,3 @@ enum outcome rps (enum tool p1, enum tool p2)
     }
   }
 }
-
-// test
