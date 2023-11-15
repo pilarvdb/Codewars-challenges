@@ -1,0 +1,6 @@
+-- You will be given a table: "opposite", with a column: "number". Return a table with a column: "res".
+
+ALTER TABLE opposite ADD COLUMN res Fixnum;
+UPDATE opposite 
+  SET res=-number;
+SELECT res FROM opposite;
