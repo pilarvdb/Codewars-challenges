@@ -1,0 +1,19 @@
+/*
+ * Given the following table 'decimals':
+
+ * ** decimals table schema **
+
+ * id
+ * number1
+ * number2
+ * Return a table with two columns (number1, number2), the value in number1 should be rounded down and the value in number2 should be rounded up.
+*/
+
+CREATE TABLE IF NOT EXISTS roundedDecimals AS
+  SELECT number1, number2
+  FROM decimals;
+  
+UPDATE roundedDecimals
+  set number1 = FLOOR(number1), number2=CEILING(number2);
+  
+SELECT * FROM roundedDecimals;
