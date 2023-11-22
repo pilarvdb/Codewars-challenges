@@ -1,6 +1,4 @@
-// gekke error: for input string: "x"
-// loopt vast in tweede while loop
-// kan nummer niet optellen
+// nog laatste stap wanneer lege rij implementeren
 
 import org.apache.commons.lang3.StringUtils;
 import java.util.*;
@@ -27,7 +25,7 @@ class MineSweeper {
     }
   
     private String boardToString(){
-      System.out.println("In function boardToString()");
+//       System.out.println("In function boardToString()");
       String resBoard = new String("");
       for (int i=0; i<board.length; i++){
         for (int j=0; j<board[i].length; j++){
@@ -197,42 +195,53 @@ class MineSweeper {
     }
     return false;
   }
+  
+  private int[] identifyProblem(){
+    
+  }
+  
+  private void takeAction(){
+    
+  }
     
     
-    public String solve() {
-      int numberOfBombs;
-      int curVal;
-      int numberUnsolved;
-      int checkNotInfinteLoop = 0;
-      while (checkNotInfinteLoop < 2 && this.minesFound != this.nMines){
-        for (int i = 0; i<board.length; i++){
-          for (int j=0; j<board[i].length; j++){
-            if (!board[i][j].equals("?")){
-              curVal = Integer.parseInt(board[i][j]);
-//               System.out.println("it: " + checkNotInfinteLoop + " current pos: " + i + " " + j + " current val: " + curVal);
-              numberUnsolved = around(i, j, "?");
-//               System.out.println("#unsolved: " + numberUnsolved);
-              if (numberUnsolved == 0){
+  public String solve() {
+    int numberOfBombs;
+    int curVal;
+    int numberUnsolved;
+    int checkNotInfinteLoop = 0;
+    int action = 1;
+    while (checkNotInfinteLoop < 10 && this.minesFound != this.nMines){
+      if (action == 0){
+        System.out.println(checkNotInfinteLoop);
+      }
+      action = 0;
+      for (int i = 0; i<board.length; i++){
+        for (int j=0; j<board[i].length; j++){
+          if (!board[i][j].equals("?") && !board[i][j].equals("x")){
+            curVal = Integer.parseInt(board[i][j]);
+            numberUnsolved = around(i, j, "?");
+            if (numberUnsolved == 0){
 //                 nothing to do here
-                continue;
-              }
-              numberOfBombs = around(i, j, "x");
-              
-              if (curVal == numberOfBombs){
-  //               All bombs are detected, safely open squares
-                openAround(i,j);
-              }
-//               System.out.println("#unsolved: " + numberUnsolved);
-              if (numberUnsolved + numberOfBombs == curVal){
-  //               these are all bombs!
-//                 System.out.println("bomb at index: " + i + " " + j);
-                fillBombAround(i,j);
-              }
+              continue;
+            }
+            numberOfBombs = around(i, j, "x");
+
+            if (curVal == numberOfBombs){
+//               All bombs are detected, safely open squares
+              openAround(i,j);
+              action++;
+            }
+            if (numberUnsolved + numberOfBombs == curVal){
+//               these are all bombs!
+              fillBombAround(i,j);
+              action++;
             }
           }
         }
-        checkNotInfinteLoop++;
       }
-      return boardToString();
+      checkNotInfinteLoop++;
     }
+    return boardToString();
+  }
 }
